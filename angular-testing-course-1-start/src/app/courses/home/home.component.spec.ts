@@ -25,6 +25,7 @@ describe('HomeComponent', () => {
 
   const beginnerCourses = setupCourses()
     .filter(course => course.category == 'BEGINNER');
+
   beforeEach(waitForAsync(() => {
 
     const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
@@ -56,6 +57,7 @@ describe('HomeComponent', () => {
 
   it("should display only beginner courses", () => {
 
+    // 'of()' subscribed to an observable
     coursesService.findAllCourses.and.returnValue(of(beginnerCourses));
 
     fixture.detectChanges();

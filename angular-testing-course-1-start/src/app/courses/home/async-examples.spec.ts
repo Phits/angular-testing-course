@@ -127,7 +127,7 @@ describe('Async Testing Examples', () => {
 
   it('Asynchronouse test example - Observables', fakeAsync(() => {
     let test = false;
-    console.log('Creating Observable');
+    // console.log('Creating Observable');
     // $ mean const is an observable
     const test$ = of(test).pipe(delay(1000));
 
@@ -139,7 +139,7 @@ describe('Async Testing Examples', () => {
 
     tick(1000);
 
-    console.log('Running test assertions');
+    // console.log('Running test assertions');
 
     expect(test).toBe(true);
 

@@ -23,9 +23,6 @@ describe('HomeComponent', () => {
   let el: DebugElement;
   let coursesService: any;
 
-  const beginnerCourses = setupCourses()
-    .filter(course => course.category == 'BEGINNER');
-
   beforeEach(waitForAsync(() => {
 
     const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
@@ -54,8 +51,10 @@ describe('HomeComponent', () => {
 
   });
 
-
   it("should display only beginner courses", () => {
+
+    const beginnerCourses = setupCourses()
+      .filter(course => course.category == 'BEGINNER');
 
     // 'of()' subscribed to an observable
     coursesService.findAllCourses.and.returnValue(of(beginnerCourses));
@@ -71,24 +70,59 @@ describe('HomeComponent', () => {
 
   it("should display only advanced courses", () => {
 
-      pending();
+    const advancedCourses = setupCourses()
+      .filter(course => course.category == 'ADVANCED');
+
+    coursesService.findAllCourses.and.returnValue(of(advancedCourses));
+
+    fixture.detectChanges();
+
+    const tabs = el.queryAll(By.css('.mat-tab-label'));
+
+    expect(tabs.length).toBe(1, "Unexpected number of tabs found");
 
   });
 
 
   it("should display both tabs", () => {
 
-    pending();
+    coursesService.findAllCourses.and.returnValue(of(setupCourses()));
+
+    fixture.detectChanges();
+
+    const tabs = el.queryAll(By.css('.mat-tab-label'));
+
+    expect(tabs.length).toBe(2, "Unexpected number of tabs found");
 
   });
 
+  // 'done' Jasmine Async to test if complete
+  it("should display advanced courses when tab is clicked", (done: DoneFn) => {
 
-  it("should display advanced courses when tab clicked", () => {
+    coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
-    pending();
+    fixture.detectChanges();
 
-  });
+    const tabs = el.queryAll(By.css(".mat-tab-label"));
 
+    // Utility function from common/test-utils.ts
+    click(tabs[1]);
+
+    fixture.detectChanges();
+
+    setTimeout(() => {
+
+      const cardTitles = el.queryAll(By.css('.mat-card-title'));
+
+      expect(cardTitles.length).toBeGreaterThan(0, 'Could not find card titles');
+
+      console.log('!!! ', cardTitles[0].nativeElement.textContent);
+
+      expect(cardTitles[0].nativeElement.textContent).toContain('Angular Testing Course');
+
+      done();
+    }, 500);
+  })
 });
 
 

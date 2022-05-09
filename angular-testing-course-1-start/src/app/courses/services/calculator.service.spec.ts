@@ -10,8 +10,6 @@ describe('CalculatorService', () => {
 
   beforeEach(() => {
 
-    console.log("Calling beforeEach");
-
     loggerSpy = jasmine.createSpyObj('LoggerService', ["log"]);
 
     TestBed.configureTestingModule({
@@ -27,8 +25,6 @@ describe('CalculatorService', () => {
 
   it('should add two numbers', () => {
 
-      console.log("Add Test");
-
       const result = calculator.add(2, 2);
 
       expect(result).toBe(4);
@@ -38,8 +34,6 @@ describe('CalculatorService', () => {
   );
 
   it('should subtract two numbers', () => {
-
-    console.log("Subtract Test");
 
     const result = calculator.subtract(2, 2);
 

@@ -37,21 +37,21 @@ describe('HomeComponent', () => {
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;
         el = fixture.debugElement;
-        coursesService = TestBed.inject(CoursesService)
+        coursesService = TestBed.inject(CoursesService);
       });
 
   }));
 
-  it("should create the component", () => {
+  it('should create the component', () => {
 
     expect(component).toBeTruthy();
 
   });
 
-  it("should display only beginner courses", () => {
+  it('should display only beginner courses', () => {
 
     const beginnerCourses = setupCourses()
-      .filter(course => course.category == 'BEGINNER');
+      .filter(course => course.category === 'BEGINNER');
 
     // 'of()' subscribed to an observable
     coursesService.findAllCourses.and.returnValue(of(beginnerCourses));
@@ -60,15 +60,15 @@ describe('HomeComponent', () => {
 
     const tabs = el.queryAll(By.css('.mat-tab-label'));
 
-    expect(tabs.length).toBe(1, "Unexpected number of tabs found");
+    expect(tabs.length).toBe(1, 'Unexpected number of tabs found');
 
   });
 
 
-  it("should display only advanced courses", () => {
+  it('should display only advanced courses', () => {
 
     const advancedCourses = setupCourses()
-      .filter(course => course.category == 'ADVANCED');
+      .filter(course => course.category === 'ADVANCED');
 
     coursesService.findAllCourses.and.returnValue(of(advancedCourses));
 
@@ -76,12 +76,12 @@ describe('HomeComponent', () => {
 
     const tabs = el.queryAll(By.css('.mat-tab-label'));
 
-    expect(tabs.length).toBe(1, "Unexpected number of tabs found");
+    expect(tabs.length).toBe(1, 'Unexpected number of tabs found');
 
   });
 
 
-  it("should display both tabs", () => {
+  it('should display both tabs', () => {
 
     coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
@@ -89,17 +89,17 @@ describe('HomeComponent', () => {
 
     const tabs = el.queryAll(By.css('.mat-tab-label'));
 
-    expect(tabs.length).toBe(2, "Unexpected number of tabs found");
+    expect(tabs.length).toBe(2, 'Unexpected number of tabs found');
 
   });
 
-  //Recommended fakeAsync as best practice. Doesn't support httpRequests
-  it("should display advanced courses when tab is clicked - fakeAsync", fakeAsync(() => {
+  // Recommended fakeAsync as best practice. Doesn't support httpRequests
+  it('should display advanced courses when tab is clicked - fakeAsync', fakeAsync(() => {
       coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
       fixture.detectChanges();
 
-      const tabs = el.queryAll(By.css(".mat-tab-label"));
+      const tabs = el.queryAll(By.css('.mat-tab-label'));
 
       // Utility function from common/test-utils.ts
       click(tabs[1]);
@@ -119,12 +119,12 @@ describe('HomeComponent', () => {
   ));
 
   // waitForAsync supports httpRequests and used for beforeEach
-  it("should display advanced courses when tab is clicked - waitForAsync", waitForAsync(() => {
+  it('should display advanced courses when tab is clicked - waitForAsync', waitForAsync(() => {
       coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
       fixture.detectChanges();
 
-      const tabs = el.queryAll(By.css(".mat-tab-label"));
+      const tabs = el.queryAll(By.css('.mat-tab-label'));
 
       // Utility function from common/test-utils.ts
       click(tabs[1]);

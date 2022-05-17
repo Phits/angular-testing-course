@@ -1,12 +1,12 @@
-import {CoursesService} from "./courses.service";
-import {TestBed} from "@angular/core/testing";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {COURSES, findLessonsForCourse} from "../../../../server/db-data";
-import {Course} from "../model/course";
-import {HttpErrorResponse} from "@angular/common/http";
+import {CoursesService} from './courses.service';
+import {TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {COURSES, findLessonsForCourse} from '../../../../server/db-data';
+import {Course} from '../model/course';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
-describe("CourseService", () => {
+describe('CourseService', () => {
 
   let coursesService: CoursesService,
     httpTestingController: HttpTestingController;
@@ -30,7 +30,7 @@ describe("CourseService", () => {
 
       expect(courses).toBeTruthy('No courses returned');
 
-      expect(courses.length).toBe(12, "Incorrect number of courses");
+      expect(courses.length).toBe(12, 'Incorrect number of courses');
 
       const course = courses.find(course => course.id === 12);
 
@@ -40,7 +40,7 @@ describe("CourseService", () => {
 
     const req = httpTestingController.expectOne('/api/courses');
 
-    expect(req.request.method).toEqual("GET");
+    expect(req.request.method).toEqual('GET');
 
     req.flush({payload: Object.values(COURSES)});
 
@@ -51,13 +51,13 @@ describe("CourseService", () => {
 
       expect(course).toBeTruthy('No course returned');
 
-      expect(course.id).toBe(12, "Incorrect course id");
+      expect(course.id).toBe(12, 'Incorrect course id');
 
     });
 
     const req = httpTestingController.expectOne('/api/courses/12');
 
-    expect(req.request.method).toEqual("GET");
+    expect(req.request.method).toEqual('GET');
 
     req.flush(COURSES[12]);
 
@@ -65,7 +65,7 @@ describe("CourseService", () => {
 
   it('Should save the course data', () => {
 
-    const changes :Partial<Course> = {titles:{description: 'Testing Course'}};
+    const changes: Partial<Course> = {titles:{description: 'Testing Course'}};
 
     coursesService.saveCourse(12, changes)
       .subscribe(course => {
@@ -89,7 +89,7 @@ describe("CourseService", () => {
 
   it('Should give an error if save course fails', () => {
 
-    const changes :Partial<Course> = {titles:{description: 'Testing Course'}};
+    const changes: Partial<Course> = {titles:{description: 'Testing Course'}};
 
     coursesService.saveCourse(12, changes).subscribe(
       () => fail('The save course operation should have failed'),
@@ -118,7 +118,7 @@ describe("CourseService", () => {
     });
 
     const req = httpTestingController.expectOne(
-      req => req.url == '/api/lessons');
+      req => req.url === '/api/lessons');
 
     expect(req.request.method).toEqual('GET');
 
